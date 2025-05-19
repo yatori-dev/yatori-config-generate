@@ -1,7 +1,24 @@
-# Yatori-config-generate
+# yatori-config-generate
 
----
+## Project setup
+```
+npm install
+```
 
-* console配置文件生成器
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-目前为开发阶段
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
