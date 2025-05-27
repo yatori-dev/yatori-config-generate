@@ -2,7 +2,7 @@
   <div style="padding-top: 24px;">
     
   </div>
- <a-card title="Yatori-go-consoel配置生成器" style="min-width: 800px; margin: 20px auto">
+ <a-card title="Yatori-go-console配置生成器" style="min-width: 800px; margin: 20px auto">
   <a-form :model="form" layout="vertical">
     
     <a-collapse :default-active-key="[]" accordion>
