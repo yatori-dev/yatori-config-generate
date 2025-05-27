@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: '/', // 从 Vue CLI3.3 起已弃用，请使用publicPath
+    publicPath: '/yatori-config-generate', // 从 Vue CLI3.3 起已弃用，请使用publicPath
     outputDir: 'dist',
     lintOnSave: true,// 是否在保存的时候检查
     devServer: {// 环境配置
