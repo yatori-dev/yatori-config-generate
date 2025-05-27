@@ -9,20 +9,24 @@
       <!-- 基础设置 -->
       <a-collapse-panel key="1" header="基础设置">
         <a-form-item label="完成提示音">
-          <a-switch v-model:checked="form.setting.basicSetting.completionTone" />
+          <a-switch :checked="form.setting.basicSetting.completionTone==0?false:true" @change="function(){
+            form.setting.basicSetting.completionTone = form.setting.basicSetting.completionTone==1?0:1
+          }" />
         </a-form-item>
         <a-form-item label="彩色日志">
-          <a-switch v-model:checked="form.setting.basicSetting.colorLog" />
+          <a-switch :checked="form.setting.basicSetting.colorLog==0?false:true" @change="function(){
+            form.setting.basicSetting.colorLog= form.setting.basicSetting.colorLog==1?0:1
+          }" />
         </a-form-item>
         <a-form-item label="日志输出到文件">
-          <a-switch v-model:checked="form.setting.basicSetting.logOutFileSw" />
+          <a-switch :checked="form.setting.basicSetting.logOutFileSw==0?false:true" @change="function(){
+            form.setting.basicSetting.logOutFileSw=form.setting.basicSetting.logOutFileSw==1?0:1
+          }"/>
         </a-form-item>
         <a-form-item label="日志等级">
           <a-select v-model:value="form.setting.basicSetting.logLevel">
             <a-select-option value="DEBUG">DEBUG</a-select-option>
             <a-select-option value="INFO">INFO</a-select-option>
-            <a-select-option value="WARNING">WARNING</a-select-option>
-            <a-select-option value="ERROR">ERROR</a-select-option>
           </a-select>
         </a-form-item>
       </a-collapse-panel>
@@ -84,7 +88,14 @@
       <a-col :span="24" v-for="(user, index) in form.users" :key="index">
         <a-card :title="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
           <a-form-item label="账户类型">
-            <a-input v-model:value="user.accountType" />
+            <!-- <a-input v-model:value="user.accountType" /> -->
+            <a-select v-model:value="user.accountType">
+              <a-select-option value="YINGHUA">英华学堂</a-select-option>
+              <a-select-option value="XUEXITONG">学习通</a-select-option>
+              <a-select-option value="ENAEA">学习公社</a-select-option>
+              <a-select-option value="CQIE">重庆工学院</a-select-option>
+              <a-select-option value="CANGHUI">仓辉</a-select-option>
+            </a-select>
           </a-form-item>
           <a-form-item label="URL">
             <a-input v-model:value="user.url" />
@@ -99,7 +110,13 @@
       </a-col>
     </a-row>
 
-    <a-button type="primary" @click="exportYaml">导出 YAML</a-button>
+    <a-button
+  type="primary"
+  shape="circle"
+  @click="exportYaml"
+  :icon="h(DownloadOutlined)"
+  style="width: 70px; height: 70px; position: fixed; bottom: 32px; right: 32px; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"
+>导出</a-button>
   </a-form>
 </a-card>
 </template>
@@ -109,6 +126,8 @@ import { reactive, h } from 'vue'
 import { saveAs } from 'file-saver'
 import yaml from 'js-yaml'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+import { DownloadOutlined } from '@ant-design/icons-vue'
+
 
 interface CoursesCustom {
   videoModel: number
@@ -131,15 +150,15 @@ interface User {
 interface FormData {
   setting: {
     basicSetting: {
-      completionTone: boolean
-      colorLog: boolean
-      logOutFileSw: boolean
+      completionTone: number
+      colorLog: number
+      logOutFileSw: number
       logLevel: string
       logModel: number
-      ipProxySw: boolean
+      ipProxySw: number
     }
     emailInform: {
-      sw: boolean
+      sw: number
       SMTPHost: string
       SMTPPort: string
       email: string
@@ -161,15 +180,15 @@ interface FormData {
 const form = reactive<FormData>({
   setting: {
     basicSetting: {
-      completionTone: true,
-      colorLog: true,
-      logOutFileSw: true,
+      completionTone: 1,
+      colorLog: 1,
+      logOutFileSw: 1,
       logLevel: 'INFO',
       logModel: 0,
-      ipProxySw: false,
+      ipProxySw: 0,
     },
     emailInform: {
-      sw: false,
+      sw: 0,
       SMTPHost: '',
       SMTPPort: '',
       email: '',
@@ -187,13 +206,13 @@ const form = reactive<FormData>({
   },
   users: [
     {
-      accountType: 'XUEXITONG',
+      accountType: 'YINGHUA',
       url: '',
       account: '',
       password: '',
       overBrush: 0,
       coursesCustom: {
-        videoModel: 0,
+        videoModel: 1,
         autoExam: 0,
         examAutoSubmit: 0,
         excludeCourses: [],
@@ -206,13 +225,13 @@ const form = reactive<FormData>({
 
 function addUser(): void {
   form.users.push({
-    accountType: 'XUEXITONG',
+    accountType: 'YINGHUA',
     url: '',
     account: '',
     password: '',
     overBrush: 0,
     coursesCustom: {
-      videoModel: 0,
+      videoModel: 1,
       autoExam: 0,
       examAutoSubmit: 0,
       excludeCourses: [],
