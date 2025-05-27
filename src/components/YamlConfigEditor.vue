@@ -90,11 +90,11 @@
           <a-form-item label="账户类型">
             <!-- <a-input v-model:value="user.accountType" /> -->
             <a-select v-model:value="user.accountType">
-              <a-select-option value="YINGHUA">英华学堂</a-select-option>
-              <a-select-option value="XUEXITONG">学习通</a-select-option>
-              <a-select-option value="ENAEA">学习公社</a-select-option>
-              <a-select-option value="CQIE">重庆工学院</a-select-option>
-              <a-select-option value="CANGHUI">仓辉</a-select-option>
+              <a-select-option :value="'YINGHUA'">英华学堂</a-select-option>
+              <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
+              <a-select-option :value="'ENAEA'">学习公社</a-select-option>
+              <a-select-option :value="'CQIE'">重庆工学院</a-select-option>
+              <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="URL">
@@ -113,9 +113,9 @@
           </a-form-item>
           <a-form-item label="视频模式">
             <a-select v-model:value="user.coursesCustom.videoModel">
-              <a-select-option value=0>不刷</a-select-option>
-              <a-select-option value=1>普通模式</a-select-option>
-              <a-select-option value=2>暴力模式</a-select-option>
+              <a-select-option :value=0>不刷</a-select-option>
+              <a-select-option :value=1>普通模式</a-select-option>
+              <a-select-option :value=2>暴力模式</a-select-option>
             </a-select>
           </a-form-item>
         </a-card>
