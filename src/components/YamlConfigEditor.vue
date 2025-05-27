@@ -106,6 +106,18 @@
           <a-form-item label="密码">
             <a-input-password v-model:value="user.password" />
           </a-form-item>
+          <a-form-item label="是否为覆刷模式">
+            <a-switch :checked="user.overBrush==1?true:false" @change="function(){
+              user.overBrush = user.overBrush==1?0:1
+            }"/>
+          </a-form-item>
+          <a-form-item label="视频模式">
+            <a-select v-model:value="user.coursesCustom.videoModel">
+              <a-select-option value=0>不刷</a-select-option>
+              <a-select-option value=1>普通模式</a-select-option>
+              <a-select-option value=2>暴力模式</a-select-option>
+            </a-select>
+          </a-form-item>
         </a-card>
       </a-col>
     </a-row>
