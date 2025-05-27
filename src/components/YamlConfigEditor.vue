@@ -1,92 +1,107 @@
 <template>
-  <a-card title="YAML 配置生成器" style="max-width: 800px; margin: 20px auto">
-    <a-form :model="form" layout="vertical">
-      <a-divider>基础设置</a-divider>
-      <a-form-item label="完成提示音">
-        <a-switch v-model:checked="form.setting.basicSetting.completionTone" />
-      </a-form-item>
-      <a-form-item label="彩色日志">
-        <a-switch v-model:checked="form.setting.basicSetting.colorLog" />
-      </a-form-item>
-      <a-form-item label="日志输出到文件">
-        <a-switch v-model:checked="form.setting.basicSetting.logOutFileSw" />
-      </a-form-item>
-      <a-form-item label="日志等级">
-        <a-select v-model:value="form.setting.basicSetting.logLevel">
-          <a-select-option value="DEBUG">DEBUG</a-select-option>
-          <a-select-option value="INFO">INFO</a-select-option>
-          <a-select-option value="WARNING">WARNING</a-select-option>
-          <a-select-option value="ERROR">ERROR</a-select-option>
-        </a-select>
-      </a-form-item>
+  <div style="padding-top: 24px;">
+    
+  </div>
+ <a-card title="YAML 配置生成器" style="min-width: 800px; margin: 20px auto">
+  <a-form :model="form" layout="vertical">
+    
+    <a-collapse :default-active-key="[]" accordion>
+      <!-- 基础设置 -->
+      <a-collapse-panel key="1" header="基础设置">
+        <a-form-item label="完成提示音">
+          <a-switch v-model:checked="form.setting.basicSetting.completionTone" />
+        </a-form-item>
+        <a-form-item label="彩色日志">
+          <a-switch v-model:checked="form.setting.basicSetting.colorLog" />
+        </a-form-item>
+        <a-form-item label="日志输出到文件">
+          <a-switch v-model:checked="form.setting.basicSetting.logOutFileSw" />
+        </a-form-item>
+        <a-form-item label="日志等级">
+          <a-select v-model:value="form.setting.basicSetting.logLevel">
+            <a-select-option value="DEBUG">DEBUG</a-select-option>
+            <a-select-option value="INFO">INFO</a-select-option>
+            <a-select-option value="WARNING">WARNING</a-select-option>
+            <a-select-option value="ERROR">ERROR</a-select-option>
+          </a-select>
+        </a-form-item>
+      </a-collapse-panel>
 
-      <a-divider>邮箱通知</a-divider>
-      <a-form-item label="开启">
-        <a-switch v-model:checked="form.setting.emailInform.sw" />
-      </a-form-item>
-      <a-form-item label="SMTP Host">
-        <a-input v-model:value="form.setting.emailInform.SMTPHost" />
-      </a-form-item>
-      <a-form-item label="SMTP Port">
-        <a-input v-model:value="form.setting.emailInform.SMTPPort" />
-      </a-form-item>
-      <a-form-item label="Email">
-        <a-input v-model:value="form.setting.emailInform.email" />
-      </a-form-item>
-      <a-form-item label="密码">
-        <a-input-password v-model:value="form.setting.emailInform.password" />
-      </a-form-item>
+      <!-- 邮箱通知 -->
+      <a-collapse-panel key="2" header="邮箱通知">
+        <a-form-item label="开启">
+          <a-switch v-model:checked="form.setting.emailInform.sw" />
+        </a-form-item>
+        <a-form-item label="SMTP Host">
+          <a-input v-model:value="form.setting.emailInform.SMTPHost" />
+        </a-form-item>
+        <a-form-item label="SMTP Port">
+          <a-input v-model:value="form.setting.emailInform.SMTPPort" />
+        </a-form-item>
+        <a-form-item label="Email">
+          <a-input v-model:value="form.setting.emailInform.email" />
+        </a-form-item>
+        <a-form-item label="密码">
+          <a-input-password v-model:value="form.setting.emailInform.password" />
+        </a-form-item>
+      </a-collapse-panel>
 
-      <a-divider>AI 设置</a-divider>
-      <a-form-item label="AI 类型">
-        <a-select v-model:value="form.setting.aiSetting.aiType">
-          <a-select-option value="TONGYI">TONGYI</a-select-option>
-          <a-select-option value="OPENAI">OPENAI</a-select-option>
-        </a-select>
-      </a-form-item>
-      <a-form-item label="AI URL">
-        <a-input v-model:value="form.setting.aiSetting.aiUrl" />
-      </a-form-item>
-      <a-form-item label="模型">
-        <a-input v-model:value="form.setting.aiSetting.model" />
-      </a-form-item>
-      <a-form-item label="API KEY">
-        <a-input-password v-model:value="form.setting.aiSetting.API_KEY" />
-      </a-form-item>
+      <!-- AI 设置 -->
+      <a-collapse-panel key="3" header="AI 设置">
+        <a-form-item label="AI 类型">
+          <a-select v-model:value="form.setting.aiSetting.aiType">
+            <a-select-option value="TONGYI">TONGYI</a-select-option>
+            <a-select-option value="OPENAI">OPENAI</a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="AI URL">
+          <a-input v-model:value="form.setting.aiSetting.aiUrl" />
+        </a-form-item>
+        <a-form-item label="模型">
+          <a-input v-model:value="form.setting.aiSetting.model" />
+        </a-form-item>
+        <a-form-item label="API KEY">
+          <a-input-password v-model:value="form.setting.aiSetting.API_KEY" />
+        </a-form-item>
+      </a-collapse-panel>
 
-      <a-divider>API 问题设置</a-divider>
-      <a-form-item label="接口地址">
-        <a-input v-model:value="form.setting.apiQueSetting.url" />
-      </a-form-item>
+      <!-- API 问题设置 -->
+      <a-collapse-panel key="4" header="API 问题设置">
+        <a-form-item label="接口地址">
+          <a-input v-model:value="form.setting.apiQueSetting.url" />
+        </a-form-item>
+      </a-collapse-panel>
+    </a-collapse>
 
-      <a-divider>用户设置</a-divider>
-      <a-button type="dashed" block @click="addUser" style="margin-bottom: 16px">
-        <template #icon><PlusOutlined /></template>
-        新增用户
-      </a-button>
+    <!-- 用户设置（保持不折叠） -->
+    <a-divider>用户设置</a-divider>
+    <a-button type="dashed" block @click="addUser" style="margin-bottom: 16px">
+      <template #icon><PlusOutlined /></template>
+      新增用户
+    </a-button>
 
-      <a-row gutter="[16, 16]">
-        <a-col :span="24" v-for="(user, index) in form.users" :key="index">
-          <a-card :title="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
-            <a-form-item label="账户类型">
-              <a-input v-model:value="user.accountType" />
-            </a-form-item>
-            <a-form-item label="URL">
-              <a-input v-model:value="user.url" />
-            </a-form-item>
-            <a-form-item label="账户">
-              <a-input v-model:value="user.account" />
-            </a-form-item>
-            <a-form-item label="密码">
-              <a-input-password v-model:value="user.password" />
-            </a-form-item>
-          </a-card>
-        </a-col>
-      </a-row>
+    <a-row gutter="[16, 16]">
+      <a-col :span="24" v-for="(user, index) in form.users" :key="index">
+        <a-card :title="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
+          <a-form-item label="账户类型">
+            <a-input v-model:value="user.accountType" />
+          </a-form-item>
+          <a-form-item label="URL">
+            <a-input v-model:value="user.url" />
+          </a-form-item>
+          <a-form-item label="账户">
+            <a-input v-model:value="user.account" />
+          </a-form-item>
+          <a-form-item label="密码">
+            <a-input-password v-model:value="user.password" />
+          </a-form-item>
+        </a-card>
+      </a-col>
+    </a-row>
 
-      <a-button type="primary" @click="exportYaml">导出 YAML</a-button>
-    </a-form>
-  </a-card>
+    <a-button type="primary" @click="exportYaml">导出 YAML</a-button>
+  </a-form>
+</a-card>
 </template>
 
 <script setup lang="ts">
