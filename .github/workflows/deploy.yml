@@ -1,0 +1,37 @@
+name: Deploy Yatori-config-generate to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 只在 main 分支有提交时触发部署（可以根据需要修改）
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout 仓库
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.10.0'  # 可以根据需要修改 Node.js 版本
+
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # 构建 VitePress 项目
+      - name: Build Yaotri-config-generate
+        run: | # VitePress 默认的构建命令，如果有自定义命令可以替换
+          npm run build 
+
+      - name: Deploy Docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages                 # 部署目标分支
+          folder: dist      # VitePress/VuePress 构建后的输出目录

@@ -6,10 +6,16 @@
     "build": "vite build"
   },
   "dependencies": {
+    "ant-design-vue": "^4.2.6",
+    "file-saver": "^2.0.5",
+    "js-yaml": "^4.1.0",
     "vue": "^3.0.4"
   },
   "devDependencies": {
-    "vite": "^1.0.0-rc.13",
-    "@vue/compiler-sfc": "^3.0.4"
+    "@vue/compiler-sfc": "^3.0.4",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7",
+    "vite": "^1.0.0-rc.13"
   }
 }
