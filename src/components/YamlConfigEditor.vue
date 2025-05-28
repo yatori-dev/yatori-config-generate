@@ -82,8 +82,10 @@
     <a-divider>用户设置</a-divider>
 
     <a-row gutter="[16, 16]">
-      <a-col :span="24" v-for="(user, index) in form.users" :key="index">
-        <a-card :title="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
+      <a-col :span="24" v-for="(user, index) in form.users" :key="index" style="margin-top: 5px;">
+        <a-collapse :default-active-key="[]" accordion>
+          <a-collapse-panel :key="index" :header="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
+            <a-card >
           <a-form-item label="账户类型" :label-col="{ span: 3 }" :wrapper-col="{ span:4, offset:0}">
             <!-- <a-input v-model:value="user.accountType" /> -->
             <a-select v-model:value="user.accountType">
@@ -146,9 +148,12 @@
             </a-button>
           </a-form-item>
         </a-card>
+          </a-collapse-panel>
+        </a-collapse>
+        
       </a-col>
     </a-row>
-    <a-button type="dashed" block @click="addUser" style="margin-bottom: 16px">
+    <a-button type="dashed" block @click="addUser" style="margin-top: 16px; margin-bottom: 16px">
       <template #icon><PlusOutlined /></template>
       新增用户
     </a-button>
