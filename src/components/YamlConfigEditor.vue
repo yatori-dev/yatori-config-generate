@@ -115,6 +115,36 @@
               <a-select-option :value=2>暴力模式</a-select-option>
             </a-select>
           </a-form-item>
+          <a-form-item label="只刷课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
+              <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.includeCourses" :key="courseIndex" >
+                <a-row :gutter="10" style="margin-top: 10px;">
+                  <a-col :span="19">
+                    <a-input v-model:value="user.coursesCustom.includeCourses[courseIndex]" placeholder="请输入课程名称"/>
+                  </a-col>
+                  <a-col :span="1">
+                    <a-button @click="removeIncludeCourse(index,courseIndex)">删除</a-button>
+                  </a-col>
+                </a-row>
+              </a-intpu-group>
+            <a-button type="dashed" block @click="addIncludeCourse(index)" style="margin-top: 10px; margin-bottom: 16px">
+              <template #icon><PlusOutlined /></template>新增包含课程
+            </a-button>
+          </a-form-item>
+          <a-form-item label="排除课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
+            <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.excludeCourses" :key="courseIndex" >
+                <a-row :gutter="10" style="margin-top: 10px;">
+                  <a-col :span="19">
+                    <a-input v-model:value="user.coursesCustom.includeCourses[courseIndex]" placeholder="请输入课程名称"/>
+                  </a-col>
+                  <a-col :span="1">
+                    <a-button @click="removeExcludeCourse(index,courseIndex)">删除</a-button>
+                  </a-col>
+                </a-row>
+              </a-intpu-group>
+            <a-button type="dashed" block @click="addExcludeCourse(index)" style="margin-top: 10px; margin-bottom: 16px">
+              <template #icon><PlusOutlined /></template>新增排除课程
+            </a-button>
+          </a-form-item>
         </a-card>
       </a-col>
     </a-row>
@@ -233,6 +263,7 @@ const form = reactive<FormData>({
   ],
 })
 
+//新增用户
 function addUser(): void {
   form.users.push({
     accountType: 'YINGHUA',
@@ -249,16 +280,34 @@ function addUser(): void {
     },
   })
 }
-
+//移除用户
 function removeUser(index: number): void {
   form.users.splice(index, 1)
 }
 
+//添加课程信息
+function addIncludeCourse(userIndex: number): void{
+  form.users[userIndex].coursesCustom.includeCourses.push("")
+}
+//移除课程信息
+function removeIncludeCourse(userIndex: number,coruseIndex: number){
+  form.users[userIndex].coursesCustom.includeCourses.splice(coruseIndex,1)
+}
+
+//添加课程信息
+function addExcludeCourse(userIndex: number): void{
+  form.users[userIndex].coursesCustom.excludeCourses.push("")
+}
+//移除课程信息
+function removeExcludeCourse(userIndex: number,coruseIndex: number){
+  form.users[userIndex].coursesCustom.excludeCourses.splice(coruseIndex,1)
+}
 function exportYaml(): void {
   const yamlStr = yaml.dump(JSON.parse(JSON.stringify(form)))
   const blob = new Blob([yamlStr], { type: 'text/yaml;charset=utf-8' })
   saveAs(blob, 'config.yaml')
 }
+
 </script>
 
 <style scoped>
