@@ -147,7 +147,6 @@ interface CoursesCustom {
   examAutoSubmit: number
   excludeCourses: string[]
   includeCourses: string[]
-  coursesSettings: any[]
 }
 
 interface User {
@@ -228,8 +227,7 @@ const form = reactive<FormData>({
         autoExam: 0,
         examAutoSubmit: 0,
         excludeCourses: [],
-        includeCourses: [],
-        coursesSettings: [],
+        includeCourses: []
       },
     },
   ],
@@ -247,8 +245,7 @@ function addUser(): void {
       autoExam: 0,
       examAutoSubmit: 0,
       excludeCourses: [],
-      includeCourses: [],
-      coursesSettings: [],
+      includeCourses: []
     },
   })
 }
