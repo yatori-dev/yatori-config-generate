@@ -23,8 +23,8 @@
         </a-form-item>
         <a-form-item label="日志等级":label-col="{ span: 3 }" :wrapper-col="{ span:2, offset:0}">
           <a-select v-model:value="form.setting.basicSetting.logLevel">
-            <a-select-option value="DEBUG">DEBUG</a-select-option>
             <a-select-option value="INFO">INFO</a-select-option>
+            <a-select-option value="DEBUG">DEBUG</a-select-option>
           </a-select>
         </a-form-item>
       </a-collapse-panel>
@@ -96,7 +96,7 @@
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="URL" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
             <a-input v-model:value="user.url" placeholder="对应平台登录后的URL链接，英华填其他的平台不用填"/>
           </a-form-item>
           <a-form-item label="账号" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
@@ -110,12 +110,20 @@
               user.overBrush = user.overBrush==1?0:1
             }"/>
           </a-form-item>
-          <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:3, offset:0}">
-            <a-select v-model:value="user.coursesCustom.videoModel">
-              <a-select-option :value=0>不刷</a-select-option>
-              <a-select-option :value=1>普通模式</a-select-option>
-              <a-select-option :value=2>暴力模式</a-select-option>
-            </a-select>
+          <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+            <a-row :gutter="10">
+              <a-col :span="6">
+                <a-select v-model:value="user.coursesCustom.videoModel">
+                  <a-select-option :value=0>不刷</a-select-option>
+                  <a-select-option :value=1>普通模式</a-select-option>
+                  <a-select-option :value=2>暴力模式</a-select-option>
+                </a-select>
+              </a-col>
+              <a-col :span="14">
+                <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='XUEXITONG'" style="color: red;font-size: 12px;">注意:学习通暴力模式有概率打回进度</span>
+                <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='YINGHUA'" style="color: red;font-size: 12px;">注意:英华暴力模式学习状态会被检测标红，至于会不会打回全看老师管的严不严</span>
+              </a-col>
+            </a-row>
           </a-form-item>
           <a-form-item label="自动考试模式" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.autoExam">
@@ -127,7 +135,7 @@
           <a-form-item label="是否自动交卷" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.examAutoSubmit">
               <a-select-option :value=0>不交卷只保存</a-select-option>
-              <a-select-option :value=1>答完直接交卷</a-select-option>、
+              <a-select-option :value=1>答完直接交卷</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="只刷课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
@@ -305,6 +313,7 @@ function removeUser(index: number): void {
 
 //添加课程信息
 function addIncludeCourse(userIndex: number): void{
+  form.users[userIndex].coursesCustom.excludeCourses=[]
   form.users[userIndex].coursesCustom.includeCourses.push("")
 }
 //移除课程信息
@@ -314,6 +323,7 @@ function removeIncludeCourse(userIndex: number,coruseIndex: number){
 
 //添加课程信息
 function addExcludeCourse(userIndex: number): void{
+  form.users[userIndex].coursesCustom.includeCourses=[]
   form.users[userIndex].coursesCustom.excludeCourses.push("")
 }
 //移除课程信息
