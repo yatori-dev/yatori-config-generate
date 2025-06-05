@@ -132,7 +132,7 @@
               <a-select-option :value=2>外置题库答题</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="是否自动交卷" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+          <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否自动交卷" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.examAutoSubmit">
               <a-select-option :value=0>不交卷只保存</a-select-option>
               <a-select-option :value=1>答完直接交卷</a-select-option>
