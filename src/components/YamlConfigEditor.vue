@@ -117,6 +117,19 @@
               <a-select-option :value=2>暴力模式</a-select-option>
             </a-select>
           </a-form-item>
+          <a-form-item label="自动考试模式" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+            <a-select v-model:value="user.coursesCustom.autoExam">
+              <a-select-option :value=0>不考</a-select-option>
+              <a-select-option :value=1>AI大模型自动答题</a-select-option>
+              <a-select-option :value=2>外置题库答题</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item label="是否自动交卷" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+            <a-select v-model:value="user.coursesCustom.examAutoSubmit">
+              <a-select-option :value=0>不交卷只保存</a-select-option>
+              <a-select-option :value=1>答完直接交卷</a-select-option>、
+            </a-select>
+          </a-form-item>
           <a-form-item label="只刷课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
               <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.includeCourses" :key="courseIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
