@@ -136,7 +136,7 @@
             <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.excludeCourses" :key="courseIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
                   <a-col :span="19">
-                    <a-input v-model:value="user.coursesCustom.includeCourses[courseIndex]" placeholder="请输入课程名称"/>
+                    <a-input v-model:value="user.coursesCustom.excludeCourses[courseIndex]" placeholder="请输入课程名称"/>
                   </a-col>
                   <a-col :span="1">
                     <a-button @click="removeExcludeCourse(index,courseIndex)">删除</a-button>
