@@ -105,23 +105,20 @@
           <a-form-item label="密码" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
             <a-input-password v-model:value="user.password" placeholder="请输入密码"/>
           </a-form-item>
-          <a-form-item label="覆刷模式" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
-            <a-switch :checked="user.overBrush==1?true:false" @change="function(){
-              user.overBrush = user.overBrush==1?0:1
-            }"/>
-          </a-form-item>
-          <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:16, offset:0}">
             <a-row :gutter="10">
               <a-col :span="6">
                 <a-select v-model:value="user.coursesCustom.videoModel">
                   <a-select-option :value=0>不刷</a-select-option>
                   <a-select-option :value=1>普通模式</a-select-option>
                   <a-select-option :value=2>暴力模式</a-select-option>
+                  <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式(英华专属)</a-select-option>
                 </a-select>
               </a-col>
               <a-col :span="14">
                 <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='XUEXITONG'" style="color: red;font-size: 12px;">注意:学习通暴力模式有概率打回进度</span>
                 <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='YINGHUA'" style="color: red;font-size: 12px;">注意:英华暴力模式学习状态会被检测标红，至于会不会打回全看老师管的严不严</span>
+                <span v-if="user.coursesCustom.videoModel==3 && user.accountType=='YINGHUA'" style="color: red;font-size: 12px;">注意:该模式主要是为了去除英华暴力模式下检测标红的学时记录,非英华不要选</span>
               </a-col>
             </a-row>
           </a-form-item>
@@ -210,7 +207,6 @@ interface User {
   url: string
   account: string
   password: string
-  overBrush: number
   coursesCustom: CoursesCustom
 }
 
@@ -277,7 +273,6 @@ const form = reactive<FormData>({
       url: '',
       account: '',
       password: '',
-      overBrush: 0,
       coursesCustom: {
         videoModel: 1,
         autoExam: 0,
@@ -296,7 +291,6 @@ function addUser(): void {
     url: '',
     account: '',
     password: '',
-    overBrush: 0,
     coursesCustom: {
       videoModel: 1,
       autoExam: 0,
