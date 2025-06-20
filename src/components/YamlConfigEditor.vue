@@ -105,6 +105,16 @@
           <a-form-item label="密码" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
             <a-input-password v-model:value="user.password" placeholder="请输入密码"/>
           </a-form-item>
+          <a-form-item label="是否开启代理" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+             <a-row :gutter="10">
+               <a-col :span="6">
+                  <a-switch :checked="user.isProxy==0?false:true" @change="function(){user.isProxy = user.isProxy==1?0:1}" />
+               </a-col>
+               <a-col :span="14">
+                <span v-if="user.isProxy==1" style="color: red;font-size: 12px;">注意:开启代理后将会从ip.txt中所填写的代理地址随机选一个进行，ip.txt需要自行创建并填写(在exe文件同目录下创建即可)，每行一个代理地址，比如http://localhost:7899</span>
+               </a-col>
+            </a-row>
+          </a-form-item>
           <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:16, offset:0}">
             <a-row :gutter="10">
               <a-col :span="6">
@@ -207,6 +217,7 @@ interface User {
   url: string
   account: string
   password: string
+  isProxy: number
   coursesCustom: CoursesCustom
 }
 
@@ -218,7 +229,6 @@ interface FormData {
       logOutFileSw: number
       logLevel: string
       logModel: number
-      ipProxySw: number
     }
     emailInform: {
       sw: number
@@ -248,7 +258,6 @@ const form = reactive<FormData>({
       logOutFileSw: 1,
       logLevel: 'INFO',
       logModel: 0,
-      ipProxySw: 0,
     },
     emailInform: {
       sw: 0,
@@ -273,6 +282,7 @@ const form = reactive<FormData>({
       url: '',
       account: '',
       password: '',
+      isProxy: 0,
       coursesCustom: {
         videoModel: 1,
         autoExam: 0,
@@ -291,6 +301,7 @@ function addUser(): void {
     url: '',
     account: '',
     password: '',
+    isProxy: 0,
     coursesCustom: {
       videoModel: 1,
       autoExam: 0,
