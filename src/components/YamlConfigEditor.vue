@@ -2,7 +2,7 @@
   <div style="padding-top: 24px; text-align: center;">Yatori-go-console配置生成器</div>
  <a-card style="min-width: 800px; margin: 20px auto;">
   <a-form :model="form" layout="horizontal" >
-    
+
     <a-collapse :default-active-key="[]" accordion>
       <!-- 基础设置 -->
       <a-collapse-panel key="1" header="基础设置">
@@ -178,7 +178,7 @@
         </a-card>
           </a-collapse-panel>
         </a-collapse>
-        
+
       </a-col>
     </a-row>
     <a-button type="dashed" block @click="addUser" style="margin-top: 16px; margin-bottom: 16px">
@@ -186,18 +186,32 @@
       新增用户
     </a-button>
     <a-button
-  type="primary"
-  shape="circle"
-  @click="exportYaml"
-  :icon="h(DownloadOutlined)"
-  style="width: 70px; height: 70px; position: fixed; bottom: 32px; right: 32px; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"
->导出</a-button>
+      type="default"
+      shape="circle"
+      @click="importClick"
+      :icon="h(DownloadOutlined)"
+      style="width: 70px; height: 70px; position: fixed; bottom: 120px; right: 32px; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">导入</a-button>
+    <input
+      ref="fileInput"
+      type="file"
+      accept=".yaml,.yml"
+      @change="importYaml"
+      style="display: none"/>
+    <a-button type="primary" shape="circle" @click="exportYaml" :icon="h(DownloadOutlined)" style="width: 70px; height: 70px; position: fixed; bottom: 32px; right: 32px; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">导出</a-button>
   </a-form>
 </a-card>
+  <!-- 拖拽提示区域（可选） -->
+  <div
+      v-show="isDragging"
+      style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+         background: rgba(0, 0, 0, 0.4); z-index: 2000; display: flex;
+         justify-content: center; align-items: center; color: white; font-size: 24px;">
+    松开以导入 config.yml
+  </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, h } from 'vue'
+import { reactive, h,ref,onMounted,onUnmounted } from 'vue'
 import { saveAs } from 'file-saver'
 import yaml from 'js-yaml'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
@@ -250,49 +264,117 @@ interface FormData {
   users: User[]
 }
 
-const form = reactive<FormData>({
-  setting: {
-    basicSetting: {
-      completionTone: 1,
-      colorLog: 1,
-      logOutFileSw: 1,
-      logLevel: 'INFO',
-      logModel: 0,
-    },
-    emailInform: {
-      sw: 0,
-      SMTPHost: '',
-      SMTPPort: '',
-      email: '',
-      password: '',
-    },
-    aiSetting: {
-      aiType: 'TONGYI',
-      aiUrl: '',
-      model: '',
-      API_KEY: '',
-    },
-    apiQueSetting: {
-      url: 'http://localhost:8083',
-    },
-  },
-  users: [
-    {
-      accountType: 'YINGHUA',
-      url: '',
-      account: '',
-      password: '',
-      isProxy: 0,
-      coursesCustom: {
-        videoModel: 1,
-        autoExam: 0,
-        examAutoSubmit: 0,
-        excludeCourses: [],
-        includeCourses: []
+function deepMerge(target: any, source: any): any {
+  for (const key in target) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (
+        typeof target[key] === 'object' &&
+        target[key] !== null &&
+        !Array.isArray(target[key])
+      ) {
+        target[key] = deepMerge(target[key], source[key])
+      } else {
+        target[key] = source[key]
+      }
+    }
+    // 如果 key 在 source 中不存在，target 已经保留默认值
+  }
+  return target
+}
+
+function getDefaultForm(): FormData {
+  return {
+    setting: {
+      basicSetting: {
+        completionTone: 1,
+        colorLog: 1,
+        logOutFileSw: 1,
+        logLevel: 'INFO',
+        logModel: 0,
+      },
+      emailInform: {
+        sw: 0,
+        SMTPHost: '',
+        SMTPPort: '',
+        email: '',
+        password: '',
+      },
+      aiSetting: {
+        aiType: 'TONGYI',
+        aiUrl: '',
+        model: '',
+        API_KEY: '',
+      },
+      apiQueSetting: {
+        url: 'http://localhost:8083',
       },
     },
-  ],
-})
+    users: [
+      {
+        accountType: 'YINGHUA',
+        url: '',
+        account: '',
+        password: '',
+        isProxy: 0,
+        coursesCustom: {
+          videoModel: 1,
+          autoExam: 0,
+          examAutoSubmit: 0,
+          excludeCourses: [],
+          includeCourses: []
+        },
+      },
+    ],
+  }
+}
+
+function importYaml(event: Event | DragEvent) {
+  let file: File | undefined
+
+  if ((event as DragEvent).dataTransfer?.files?.length) {
+    file = (event as DragEvent).dataTransfer!.files[0]
+  } else if ((event.target as HTMLInputElement)?.files?.length) {
+    file = (event.target as HTMLInputElement).files?.[0]
+  }
+
+  if (!file || !file.name.endsWith('.yml') && !file.name.endsWith('.yaml')) {
+    alert('请上传 YAML 文件（.yml 或 .yaml）')
+    return
+  }
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    try {
+      const text = e.target?.result as string
+      const parsed = yaml.load(text) as Partial<FormData>
+
+      const defaultForm = getDefaultForm()
+
+      // 特殊处理 users：逐个合并
+      if (Array.isArray(parsed.users)) {
+        defaultForm.users = parsed.users.map((u) => {
+          return deepMerge(getDefaultForm().users[0], u)
+        })
+      }
+
+      // 合并 setting 部分
+      defaultForm.setting = deepMerge(defaultForm.setting, parsed.setting || {})
+
+      // 替换响应式 form（不能直接替换 form = xxx，否则 Vue 不追踪）
+      Object.assign(form, defaultForm)
+
+    } catch (err) {
+      console.error('YAML解析失败:', err)
+      alert('导入失败，请检查YAML文件格式是否正确')
+    }
+  }
+  reader.readAsText(file)
+}
+
+
+//配置文件信息
+const form = reactive<FormData>(getDefaultForm())
+const isDragging = ref(false) //控制文件拖拽
 
 //新增用户
 function addUser(): void {
@@ -340,6 +422,54 @@ function exportYaml(): void {
   const blob = new Blob([yamlStr], { type: 'text/yaml;charset=utf-8' })
   saveAs(blob, 'config.yaml')
 }
+
+
+
+// 文件输入框的引用
+const fileInput = ref<HTMLInputElement | null>(null)
+
+// 触发文件选择
+function importClick() {
+  fileInput.value?.click()
+}
+
+
+// 拖拽事件绑定
+let dragCounter = 0
+
+const handleDragEnter = (e: DragEvent) => {
+  e.preventDefault()
+  dragCounter++
+  isDragging.value = true
+}
+
+const handleDragLeave = (e: DragEvent) => {
+  e.preventDefault()
+  dragCounter--
+  if (dragCounter <= 0) {
+    isDragging.value = false
+  }
+}
+
+const handleDrop = (e: DragEvent) => {
+  e.preventDefault()
+  dragCounter = 0
+  isDragging.value = false
+  importYaml(e)
+}
+
+onMounted(() => {
+  window.addEventListener('dragenter', handleDragEnter)
+  window.addEventListener('dragleave', handleDragLeave)
+  window.addEventListener('drop', handleDrop)
+  window.addEventListener('dragover', (e) => e.preventDefault())
+})
+
+onUnmounted(() => {
+  window.removeEventListener('dragenter', handleDragEnter)
+  window.removeEventListener('dragleave', handleDragLeave)
+  window.removeEventListener('drop', handleDrop)
+})
 
 </script>
 
