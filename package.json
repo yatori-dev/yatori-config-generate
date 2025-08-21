@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "buildApp": "vite build && electron-builder"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
@@ -22,8 +23,26 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-sfc": "^3.5.15",
     "@vue/tsconfig": "^0.7.0",
+    "electron": "^36.5.0",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vue-tsc": "^2.2.10"
+  },
+  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "your.app.id",
+    "productName": "MyApp",
+    "files": [
+      "dist/",
+      "dis-electron/main.js"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    }
   }
 }
