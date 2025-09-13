@@ -122,7 +122,8 @@
                   <a-select-option :value=0>不刷</a-select-option>
                   <a-select-option :value=1>普通模式</a-select-option>
                   <a-select-option :value=2>暴力模式</a-select-option>
-                  <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式(英华专属)</a-select-option>
+                  <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式</a-select-option>
+                  <a-select-option v-if="user.accountType=='XUEXITONG'" :value=3>多课程同时进行模式</a-select-option>
                 </a-select>
               </a-col>
               <a-col :span="14">
