@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var vue_1 = require("vue");
-require("./style.css");
-var App_vue_1 = require("./App.vue");
-var ant_design_vue_1 = require("ant-design-vue");
-require("ant-design-vue/dist/reset.css");
-var app = (0, vue_1.createApp)(App_vue_1.default);
-app.use(ant_design_vue_1.default);
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/reset.css';
+const app = createApp(App);
+app.use(Antd);
 app.mount('#app');

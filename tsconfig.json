@@ -11,5 +11,23 @@
     "src/**/*.vue",
     "electron-main/**/*.ts",
     "electron-preload/**/*.ts"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationDir": "./dist/types"
+  },
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -214,7 +214,7 @@
 <script setup lang="ts">
 import { reactive, h,ref,onMounted,onUnmounted } from 'vue'
 import { saveAs } from 'file-saver'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import { DownloadOutlined } from '@ant-design/icons-vue'
 
