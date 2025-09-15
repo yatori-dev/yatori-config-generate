@@ -93,6 +93,7 @@
               <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
               <a-select-option :value="'ENAEA'">学习公社(ENAEA)</a-select-option>
               <a-select-option :value="'CQIE'">重庆工学院</a-select-option>
+              <a-select-option :value="'KETANGX'">码上研训</a-select-option>
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
