@@ -87,8 +87,7 @@
           <a-collapse-panel :key="index" :header="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
             <a-card >
           <a-form-item label="账户类型" :label-col="{ span: 3 }" :wrapper-col="{ span:6, offset:0}">
-            <!-- <a-input v-model:value="user.accountType" /> -->
-            <a-select v-model:value="user.accountType" label-in-value >
+            <a-select v-model:value="user.accountType">
               <a-select-option :value="'YINGHUA'">英华学堂</a-select-option>
               <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
               <a-select-option :value="'ENAEA'">学习公社(ENAEA)</a-select-option>
