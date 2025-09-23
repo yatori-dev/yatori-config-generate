@@ -86,14 +86,15 @@
         <a-collapse :default-active-key="[]" accordion>
           <a-collapse-panel :key="index" :header="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
             <a-card >
-          <a-form-item label="账户类型" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+          <a-form-item label="账户类型" :label-col="{ span: 3 }" :wrapper-col="{ span:6, offset:0}">
             <!-- <a-input v-model:value="user.accountType" /> -->
-            <a-select v-model:value="user.accountType">
+            <a-select v-model:value="user.accountType" label-in-value >
               <a-select-option :value="'YINGHUA'">英华学堂</a-select-option>
               <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
               <a-select-option :value="'ENAEA'">学习公社(ENAEA)</a-select-option>
               <a-select-option :value="'CQIE'">重庆工学院</a-select-option>
               <a-select-option :value="'KETANGX'">码上研训</a-select-option>
+              <a-select-option :value="'WELEARN'">随行课堂(Welearn)</a-select-option>
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
@@ -118,11 +119,17 @@
           </a-form-item>
           <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:16, offset:0}">
             <a-row :gutter="10">
-              <a-col :span="6">
+              <a-col :span="7">
                 <a-select v-model:value="user.coursesCustom.videoModel">
                   <a-select-option :value=0>不刷</a-select-option>
-                  <a-select-option :value=1>普通模式</a-select-option>
-                  <a-select-option :value=2>暴力模式</a-select-option>
+                  <a-select-option :value=1>
+                    <span v-if="user.accountType!='WELEARN'">普通模式</span>
+                    <span v-if="user.accountType=='WELEARN'">刷学时模式</span> 
+                  </a-select-option>
+                  <a-select-option :value=2>
+                    <span v-if="user.accountType!='WELEARN'">暴力模式</span>
+                    <span v-if="user.accountType=='WELEARN'">刷完成度模式</span>
+                  </a-select-option>
                   <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式</a-select-option>
                   <a-select-option v-if="user.accountType=='XUEXITONG'" :value=3>多课程同时进行模式</a-select-option>
                 </a-select>
