@@ -56,6 +56,7 @@
             <a-select-option value="TONGYI">通义千问</a-select-option>
             <a-select-option value="XINGHUO">星火大模型</a-select-option>
             <a-select-option value="DOUBAO">豆包大模型</a-select-option>
+            <a-select-option value="METAAI">秘塔AI</a-select-option>
             <a-select-option value="OTHER">其他AI</a-select-option>
           </a-select>
         </a-form-item>
