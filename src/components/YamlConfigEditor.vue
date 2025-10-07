@@ -92,9 +92,10 @@
               <a-select-option :value="'YINGHUA'">英华学堂</a-select-option>
               <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
               <a-select-option :value="'ENAEA'">学习公社(ENAEA)</a-select-option>
+              <a-select-option :value="'WELEARN'">随行课堂(Welearn)</a-select-option>
+              <a-select-option :value="'ICVE'">智慧职教</a-select-option>
               <a-select-option :value="'CQIE'">重庆工学院</a-select-option>
               <a-select-option :value="'KETANGX'">码上研训</a-select-option>
-              <a-select-option :value="'WELEARN'">随行课堂(Welearn)</a-select-option>
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
@@ -123,8 +124,9 @@
                 <a-select v-model:value="user.coursesCustom.videoModel">
                   <a-select-option :value=0>不刷</a-select-option>
                   <a-select-option :value=1>
-                    <span v-if="user.accountType!='WELEARN'">普通模式</span>
+                    <span v-if="user.accountType!='WELEARN' && user.accountType!='ICVE' ">普通模式</span>
                     <span v-if="user.accountType=='WELEARN'">刷学时模式</span> 
+                    <span v-if="user.accountType=='ICVE'">秒刷模式</span> 
                   </a-select-option>
                   <a-select-option :value=2>
                     <span v-if="user.accountType!='WELEARN'">暴力模式</span>
