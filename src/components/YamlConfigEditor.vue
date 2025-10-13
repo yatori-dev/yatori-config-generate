@@ -129,11 +129,12 @@
                     <span v-if="user.accountType=='ICVE'">秒刷模式</span> 
                   </a-select-option>
                   <a-select-option :value=2>
-                    <span v-if="user.accountType!='WELEARN'">暴力模式</span>
+                    <span v-if="user.accountType!='WELEARN' && user.accountType!='XUEXITONG'">暴力模式</span>
                     <span v-if="user.accountType=='WELEARN'">刷完成度模式</span>
+                    <span v-if="user.accountType=='XUEXITONG'">多课程同时进行模式</span>
                   </a-select-option>
                   <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式</a-select-option>
-                  <a-select-option v-if="user.accountType=='XUEXITONG'" :value=3>多课程同时进行模式</a-select-option>
+                  <a-select-option v-if="user.accountType=='XUEXITONG'" :value=3>多任务点同时进行模式</a-select-option>
                 </a-select>
               </a-col>
               <a-col :span="14">
