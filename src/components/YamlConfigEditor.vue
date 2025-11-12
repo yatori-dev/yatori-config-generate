@@ -6,22 +6,22 @@
     <a-collapse :default-active-key="[]" accordion>
       <!-- 基础设置 -->
       <a-collapse-panel key="1" header="基础设置">
-        <a-form-item label="完成提示音" :label-col="{ span: 3 }" :wrapper-col="{ span:2, offset:0}">
+        <a-form-item label="完成提示音" :label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
           <a-switch :checked="form.setting.basicSetting.completionTone==0?false:true" @change="function(){
             form.setting.basicSetting.completionTone = form.setting.basicSetting.completionTone==1?0:1
           }" />
         </a-form-item>
-        <a-form-item label="彩色日志":label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+        <a-form-item label="彩色日志":label-col="{ span: 4 }" :wrapper-col="{ span:5, offset:0}">
           <a-switch :checked="form.setting.basicSetting.colorLog==0?false:true" @change="function(){
             form.setting.basicSetting.colorLog= form.setting.basicSetting.colorLog==1?0:1
           }" />
         </a-form-item>
-        <a-form-item label="日志输出到文件":label-col="{ span: 3 }" :wrapper-col="{ span:2, offset:0}">
+        <a-form-item label="日志输出到文件":label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
           <a-switch :checked="form.setting.basicSetting.logOutFileSw==0?false:true" @change="function(){
             form.setting.basicSetting.logOutFileSw=form.setting.basicSetting.logOutFileSw==1?0:1
           }"/>
         </a-form-item>
-        <a-form-item label="日志等级":label-col="{ span: 3 }" :wrapper-col="{ span:2, offset:0}">
+        <a-form-item label="日志等级":label-col="{ span: 4 }" :wrapper-col="{ span:3, offset:0}">
           <a-select v-model:value="form.setting.basicSetting.logLevel">
             <a-select-option value="INFO">INFO</a-select-option>
             <a-select-option value="DEBUG">DEBUG</a-select-option>
@@ -31,19 +31,19 @@
 
       <!-- 邮箱通知 -->
       <a-collapse-panel key="2" header="邮箱通知配置">
-        <a-form-item label="开启" :label-col="{ span: 2 }" :wrapper-col="{ span:2, offset:0}">
+        <a-form-item label="开启" :label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
           <a-switch v-model:checked="form.setting.emailInform.sw" />
         </a-form-item>
-        <a-form-item label="SMTP Host" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
+        <a-form-item label="SMTP Host" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
           <a-input v-model:value="form.setting.emailInform.SMTPHost" placeholder="请输入HOST值"/>
         </a-form-item>
-        <a-form-item label="SMTP Port" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
+        <a-form-item label="SMTP Port" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
           <a-input v-model:value="form.setting.emailInform.SMTPPort" placeholder="请输入端口号"/>
         </a-form-item>
-        <a-form-item label="Email" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
-          <a-input v-model:value="form.setting.emailInform.email" placeholder="请输入邮箱"/>
+        <a-form-item label="userName(Email)" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
+          <a-input v-model:value="form.setting.emailInform.userName" placeholder="请输入邮箱"/>
         </a-form-item>
-        <a-form-item label="密码" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
+        <a-form-item label="密码" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
           <a-input-password v-model:value="form.setting.emailInform.password" placeholder="请输入密码"/>
         </a-form-item>
       </a-collapse-panel>
@@ -87,7 +87,7 @@
         <a-collapse :default-active-key="[]" accordion>
           <a-collapse-panel :key="index" :header="'用户 ' + (index + 1)" :extra="index > 0 ? h(DeleteOutlined, { onClick: () => removeUser(index), style: 'color:red;cursor:pointer' }) : null">
             <a-card >
-          <a-form-item label="账户类型" :label-col="{ span: 3 }" :wrapper-col="{ span:6, offset:0}">
+          <a-form-item label="账户类型" :label-col="{ span: 4 }" :wrapper-col="{ span:6, offset:0}">
             <a-select v-model:value="user.accountType">
               <a-select-option :value="'YINGHUA'">英华学堂</a-select-option>
               <a-select-option :value="'XUEXITONG'">学习通</a-select-option>
@@ -99,16 +99,16 @@
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
             <a-input v-model:value="user.url" placeholder="对应平台登录后的URL链接，英华填其他的平台不用填"/>
           </a-form-item>
-          <a-form-item label="账号" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item label="账号" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
             <a-input v-model:value="user.account" placeholder="请输入账号"/>
           </a-form-item>
-          <a-form-item label="密码" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item label="密码" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
             <a-input-password v-model:value="user.password" placeholder="请输入密码"/>
           </a-form-item>
-          <a-form-item label="是否开启代理" :label-col="{ span: 3 }" :wrapper-col="{ span:10, offset:0}">
+          <a-form-item label="是否开启代理" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
              <a-row :gutter="10">
                <a-col :span="6">
                   <a-switch :checked="user.isProxy==0?false:true" @change="function(){user.isProxy = user.isProxy==1?0:1}" />
@@ -118,7 +118,22 @@
                </a-col>
             </a-row>
           </a-form-item>
-          <a-form-item label="视频模式" :label-col="{ span: 3 }" :wrapper-col="{ span:16, offset:0}">
+          <a-form-item label="通知邮箱" :label-col="{ span: 4 }" :wrapper-col="{ span:9, offset:0}">
+              <a-intpu-group v-for="(_,emailIndex) in user.informEmails" :key="emailIndex" >
+                <a-row :gutter="10" style="margin-top: 10px;">
+                  <a-col :span="19">
+                    <a-input v-model:value="user.informEmails[emailIndex]" placeholder="请输入Email"/>
+                  </a-col>
+                  <a-col :span="1">
+                    <a-button @click="removeInformEmail(index,emailIndex)">删除</a-button>
+                  </a-col>
+                </a-row>
+              </a-intpu-group>
+            <a-button type="dashed" block @click="addInformEmail(index)" style="margin-top: 10px; margin-bottom: 16px">
+              <template #icon><PlusOutlined /></template>新增邮箱
+            </a-button>
+          </a-form-item>
+          <a-form-item label="视频模式" :label-col="{ span: 4 }" :wrapper-col="{ span:16, offset:0}">
             <a-row :gutter="10">
               <a-col :span="7">
                 <a-select v-model:value="user.coursesCustom.videoModel">
@@ -144,20 +159,20 @@
               </a-col>
             </a-row>
           </a-form-item>
-          <a-form-item label="自动考试模式" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+          <a-form-item label="自动考试模式" :label-col="{ span: 4 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.autoExam">
               <a-select-option :value=0>不考</a-select-option>
               <a-select-option :value=1>AI大模型自动答题</a-select-option>
               <a-select-option :value=2>外置题库答题</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否自动交卷" :label-col="{ span: 3 }" :wrapper-col="{ span:5, offset:0}">
+          <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否自动交卷" :label-col="{ span: 4 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.examAutoSubmit">
               <a-select-option :value=0>不交卷只保存</a-select-option>
               <a-select-option :value=1>答完直接交卷</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="只刷课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
+          <a-form-item label="只刷课程设定项" :label-col="{ span: 4 }" :wrapper-col="{ span:9, offset:0}">
               <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.includeCourses" :key="courseIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
                   <a-col :span="19">
@@ -172,7 +187,7 @@
               <template #icon><PlusOutlined /></template>新增包含课程
             </a-button>
           </a-form-item>
-          <a-form-item label="排除课程设定项" :label-col="{ span: 3 }" :wrapper-col="{ span:9, offset:0}">
+          <a-form-item label="排除课程设定项" :label-col="{ span: 4 }" :wrapper-col="{ span:9, offset:0}">
             <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.excludeCourses" :key="courseIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
                   <a-col :span="19">
@@ -220,6 +235,7 @@
          justify-content: center; align-items: center; color: white; font-size: 24px;">
     松开以导入 config.yml
   </div>
+  <div style="text-align: center; "><span style="color: red">注</span>：导出后直接<span style="color: red;">覆盖</span>原来的config配置文件即可</div>
 </template>
 
 <script setup lang="ts">
@@ -231,6 +247,9 @@ import { DownloadOutlined } from '@ant-design/icons-vue'
 
 
 interface CoursesCustom {
+  weLearnTime: string
+  shuffleSw: number
+  cxNode: number
   videoModel: number
   autoExam: number
   examAutoSubmit: number
@@ -244,6 +263,7 @@ interface User {
   account: string
   password: string
   isProxy: number
+  informEmails: string[]
   coursesCustom: CoursesCustom
 }
 
@@ -260,7 +280,7 @@ interface FormData {
       sw: number
       SMTPHost: string
       SMTPPort: string
-      email: string
+      userName: string
       password: string
     }
     aiSetting: {
@@ -308,7 +328,7 @@ function getDefaultForm(): FormData {
         sw: 0,
         SMTPHost: '',
         SMTPPort: '',
-        email: '',
+        userName: '',
         password: '',
       },
       aiSetting: {
@@ -328,7 +348,11 @@ function getDefaultForm(): FormData {
         account: '',
         password: '',
         isProxy: 0,
+        informEmails:[],
         coursesCustom: {
+          weLearnTime: "10-30",
+          shuffleSw: 0,
+          cxNode: 3,
           videoModel: 1,
           autoExam: 0,
           examAutoSubmit: 0,
@@ -396,7 +420,11 @@ function addUser(): void {
     account: '',
     password: '',
     isProxy: 0,
+    informEmails: [],
     coursesCustom: {
+      weLearnTime: "10-30",
+      shuffleSw: 0,
+      cxNode: 3,
       videoModel: 1,
       autoExam: 0,
       examAutoSubmit: 0,
@@ -436,6 +464,15 @@ function exportYaml(): void {
 }
 
 
+//添加通知邮箱
+function addInformEmail(userIndex: number): void{
+  // form.users[userIndex].informEmails=[]
+  form.users[userIndex].informEmails.push("")
+}
+//移除通知邮箱
+function removeInformEmail(userIndex: number,emailIndex: number){
+  form.users[userIndex].informEmails.splice(emailIndex,1)
+}
 
 // 文件输入框的引用
 const fileInput = ref<HTMLInputElement | null>(null)
