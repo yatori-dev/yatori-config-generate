@@ -457,8 +457,18 @@ function addExcludeCourse(userIndex: number): void{
 function removeExcludeCourse(userIndex: number,coruseIndex: number){
   form.users[userIndex].coursesCustom.excludeCourses.splice(coruseIndex,1)
 }
+
+
 function exportYaml(): void {
-  const yamlStr = yaml.dump(JSON.parse(JSON.stringify(form)))
+  const processed =JSON.parse(JSON.stringify(form))
+  const yamlStr = yaml.dump(processed,
+  {
+    styles: {
+      '!!str': 'single-quoted'
+    },
+    quotingType: '\'', // ✅ 显式使用单引号（避免双引号）
+      forceQuotes: true   // ✅ 强制所有字符串加引号
+  })
   const blob = new Blob([yamlStr], { type: 'text/yaml;charset=utf-8' })
   saveAs(blob, 'config.yaml')
 }
