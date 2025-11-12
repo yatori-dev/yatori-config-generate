@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/yatori-config-generate/',
+  // base: '/yatori-config-generate/',
+  base: './',
   plugins: [vue()],
 })
