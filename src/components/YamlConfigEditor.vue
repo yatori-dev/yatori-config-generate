@@ -52,17 +52,17 @@
       <a-collapse-panel key="3" header="AI大模型自动答题设置">
         <a-form-item label="AI类型" :label-col="{ span: 2 }" :wrapper-col="{ span:5, offset:0}">
           <a-select v-model:value="form.setting.aiSetting.aiType">
-            <a-select-option value="SILICON">SiliconFlow(硅基流动)</a-select-option>
-            <a-select-option value="DEEPSEEK">DeepSeek(深度求索)</a-select-option>
-            <a-select-option value="CHATGLM">智谱清言(ChatGLM)</a-select-option>
-            <a-select-option value="TONGYI">通义千问</a-select-option>
-            <a-select-option value="XINGHUO">星火大模型</a-select-option>
-            <a-select-option value="DOUBAO">豆包大模型</a-select-option>
-            <a-select-option value="METAAI">秘塔AI</a-select-option>
-            <a-select-option value="OTHER">其他AI</a-select-option>
+            <a-select-option :value="'SILICON'">SiliconFlow(硅基流动)</a-select-option>
+            <a-select-option :value="'DEEPSEEK'">DeepSeek(深度求索)</a-select-option>
+            <a-select-option :value="'CHATGLM'">智谱清言(ChatGLM)</a-select-option>
+            <a-select-option :value="'TONGYI'">通义千问</a-select-option>
+            <a-select-option :value="'XINGHUO'">星火大模型</a-select-option>
+            <a-select-option :value="'DOUBAO'">豆包大模型</a-select-option>
+            <a-select-option :value="'METAAI'">秘塔AI</a-select-option>
+            <a-select-option :value="'OTHER'">其他AI</a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="AI URL" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
+        <a-form-item label="AI URL" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}" v-if="form.setting.aiSetting.aiType=='OTHER'">
           <a-input v-model:value="form.setting.aiSetting.aiUrl" placeholder="请输入模型API接口链接"/>
         </a-form-item>
         <a-form-item label="模型" :label-col="{ span: 2 }" :wrapper-col="{ span:10, offset:0}">
