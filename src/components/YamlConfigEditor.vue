@@ -52,6 +52,7 @@
       <a-collapse-panel key="3" header="AI大模型自动答题设置">
         <a-form-item label="AI类型" :label-col="{ span: 2 }" :wrapper-col="{ span:5, offset:0}">
           <a-select v-model:value="form.setting.aiSetting.aiType">
+            <a-select-option value="DEEPSEEK">DeepSeek(深度求索)</a-select-option>
             <a-select-option value="CHATGLM">智谱清言(ChatGLM)</a-select-option>
             <a-select-option value="TONGYI">通义千问</a-select-option>
             <a-select-option value="XINGHUO">星火大模型</a-select-option>
