@@ -251,7 +251,7 @@ import { DownloadOutlined } from '@ant-design/icons-vue'
 
 
 interface CoursesCustom {
-  weLearnTime: string
+  studyTime: string
   shuffleSw: number
   cxNode: number
   videoModel: number
@@ -354,7 +354,7 @@ function getDefaultForm(): FormData {
         isProxy: 0,
         informEmails:[],
         coursesCustom: {
-          weLearnTime: "10-30",
+          studyTime: "10-30",
           shuffleSw: 0,
           cxNode: 3,
           videoModel: 1,
@@ -426,7 +426,7 @@ function addUser(): void {
     isProxy: 0,
     informEmails: [],
     coursesCustom: {
-      weLearnTime: "10-30",
+      studyTime: "10-30",
       shuffleSw: 0,
       cxNode: 3,
       videoModel: 1,
