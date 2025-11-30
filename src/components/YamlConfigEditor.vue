@@ -99,6 +99,7 @@
               <a-select-option :value="'CQIE'">重庆工学院</a-select-option>
               <a-select-option :value="'KETANGX'">码上研训</a-select-option>
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
+              <a-select-option :value="'QSXT'">青书学堂</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
@@ -158,6 +159,7 @@
                 <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='XUEXITONG'" style="color: red;font-size: 12px;">注意:学习通暴力模式有概率打回进度</span>
                 <span v-if="user.coursesCustom.videoModel==2 && user.accountType=='YINGHUA'" style="color: red;font-size: 12px;">注意:英华暴力模式学习状态会被检测标红，至于会不会打回全看老师管的严不严</span>
                 <span v-if="user.coursesCustom.videoModel==3 && user.accountType=='YINGHUA'" style="color: red;font-size: 12px;">注意:该模式主要是为了去除英华暴力模式下检测标红的学时记录,非英华不要选</span>
+                <span v-if="user.coursesCustom.videoModel!=1 && user.accountType=='QSXT'" style="color: red;font-size: 12px;">注意:青书学堂只支持普通模式</span>
               </a-col>
             </a-row>
           </a-form-item>
