@@ -6,4 +6,7 @@ export default defineConfig({
   // base: '/yatori-config-generate/',
   base: './',
   plugins: [vue()],
+  build:{
+    outDir: 'dist'
+  }
 })

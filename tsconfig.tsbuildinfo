@@ -1,1 +1,1 @@
-{"root":["./src/main.ts","./src/vite-env.d.ts","./src/vue-shims.d.ts","./src/types/shims-antdv.d.ts","./src/app.vue","./src/components/helloworld.vue","./src/components/yamlconfigeditor.vue","./electron-main/main.ts"],"version":"5.8.3"}
+{"root":["./src/main.ts","./src/vite-env.d.ts","./src/vue-shims.d.ts","./src/types/shims-antdv.d.ts","./src/app.vue","./src/components/helloworld.vue","./src/components/yamlconfigeditor.vue"],"version":"5.8.3"}

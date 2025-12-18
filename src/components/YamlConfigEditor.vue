@@ -121,6 +121,9 @@
                </a-col>
             </a-row>
           </a-form-item>
+          <a-form-item v-if="user.accountType=='XUEXITONG' && user.coursesCustom.videoModel==3" label="同时任务点数量" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
+            <a-input v-model:value="user.coursesCustom.cxNode" :min="-1" :max="9999" placeholder="请输入同时任务点数量"/>
+          </a-form-item>
           <a-form-item label="通知邮箱" :label-col="{ span: 4 }" :wrapper-col="{ span:9, offset:0}">
               <a-intpu-group v-for="(_,emailIndex) in user.informEmails" :key="emailIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
@@ -177,6 +180,15 @@
               <a-select-option :value=1>答完直接交卷</a-select-option>
             </a-select>
           </a-form-item>
+          <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否开启写章测" :label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
+          <a-switch :checked="user.coursesCustom.cxChapterTestSw==0?false:true" @change="function(){user.coursesCustom.cxChapterTestSw=user.coursesCustom.cxChapterTestSw==1?0:1}"/>
+        </a-form-item>
+        <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否开启写作业" :label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
+          <a-switch :checked="user.coursesCustom.cxWorkSw==0?false:true" @change="function(){user.coursesCustom.cxWorkSw=user.coursesCustom.cxWorkSw==1?0:1}"/>
+        </a-form-item>
+        <a-form-item v-if="user.coursesCustom.autoExam!=0" label="是否开启写考试" :label-col="{ span: 4 }" :wrapper-col="{ span:2, offset:0}">
+          <a-switch :checked="user.coursesCustom.cxExamSw==0?false:true" @change="function(){user.coursesCustom.cxExamSw=user.coursesCustom.cxExamSw==1?0:1}"/>
+        </a-form-item>
           <a-form-item label="只刷课程设定项" :label-col="{ span: 4 }" :wrapper-col="{ span:9, offset:0}">
               <a-intpu-group v-for="(_,courseIndex) in user.coursesCustom.includeCourses" :key="courseIndex" >
                 <a-row :gutter="10" style="margin-top: 10px;">
@@ -254,7 +266,10 @@ import { DownloadOutlined } from '@ant-design/icons-vue'
 interface CoursesCustom {
   studyTime: string
   shuffleSw: number
-  cxNode: number
+  cxNode?: number
+  cxChapterTestSw?: number
+  cxWorkSw?: number
+  cxExamSw?: number
   videoModel: number
   autoExam: number
   examAutoSubmit: number
@@ -360,6 +375,9 @@ function getDefaultForm(): FormData {
           cxNode: 3,
           videoModel: 1,
           autoExam: 0,
+          cxChapterTestSw: 1,
+          cxWorkSw: 1,
+          cxExamSw: 1,
           examAutoSubmit: 0,
           excludeCourses: [],
           includeCourses: []
@@ -430,6 +448,9 @@ function addUser(): void {
       studyTime: "10-30",
       shuffleSw: 0,
       cxNode: 3,
+      cxChapterTestSw: 1,
+      cxWorkSw: 1,
+      cxExamSw: 1,
       videoModel: 1,
       autoExam: 0,
       examAutoSubmit: 0,
