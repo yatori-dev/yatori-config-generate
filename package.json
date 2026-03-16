@@ -32,6 +32,7 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
+    "vite-plugin-singlefile": "^2.3.0",
     "vue-tsc": "^3.0.7"
   },
   "main": "electron/main.cjs",
@@ -47,11 +48,11 @@
       "electron/preload.cjs",
       "package.json"
     ],
-    "win":{
+    "win": {
       "target": "nsis",
       "icon": "public/icon.ico"
     },
-     "nsis": {
+    "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true

@@ -100,6 +100,7 @@
               <a-select-option :value="'KETANGX'">码上研训</a-select-option>
               <a-select-option :value="'CANGHUI'">仓辉</a-select-option>
               <a-select-option :value="'QSXT'">青书学堂</a-select-option>
+              <a-select-option :value="'HQKJ'">海旗科技</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
@@ -150,9 +151,10 @@
                     <span v-if="user.accountType=='ICVE'">秒刷模式</span> 
                   </a-select-option>
                   <a-select-option :value=2>
-                    <span v-if="user.accountType!='WELEARN' && user.accountType!='XUEXITONG'">暴力模式</span>
+                    <span v-if="user.accountType!='WELEARN' && user.accountType!='XUEXITONG' && user.accountType!='HQKJ'">暴力模式</span>
                     <span v-if="user.accountType=='WELEARN'">刷完成度模式</span>
                     <span v-if="user.accountType=='XUEXITONG'">多课程同时进行模式</span>
+                    <span v-if="user.accountType=='HQKJ'">秒刷模式</span>
                   </a-select-option>
                   <a-select-option v-if="user.accountType=='YINGHUA'" :value=3>去红模式</a-select-option>
                   <a-select-option v-if="user.accountType=='XUEXITONG'" :value=3>多任务点同时进行模式</a-select-option>
