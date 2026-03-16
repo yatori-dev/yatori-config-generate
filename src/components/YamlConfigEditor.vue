@@ -103,8 +103,8 @@
               <a-select-option :value="'HQKJ'">海旗科技</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item v-if="user.accountType=='YINGHUA'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
-            <a-input v-model:value="user.url" placeholder="对应平台登录后的URL链接，英华填其他的平台不用填"/>
+          <a-form-item v-if="user.accountType=='YINGHUA' || user.accountType=='HQKJ'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
+            <a-input v-model:value="user.url" placeholder="对应平台登录后的URL链接，英华和海旗科技的填，其他的平台不用填"/>
           </a-form-item>
           <a-form-item label="账号" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
             <a-input v-model:value="user.account" placeholder="请输入账号"/>
@@ -168,7 +168,7 @@
               </a-col>
             </a-row>
           </a-form-item>
-          <a-form-item label="自动考试模式" :label-col="{ span: 4 }" :wrapper-col="{ span:5, offset:0}">
+          <a-form-item v-if="user.accountType!='HQKJ'" label="自动考试模式" :label-col="{ span: 4 }" :wrapper-col="{ span:5, offset:0}">
             <a-select v-model:value="user.coursesCustom.autoExam">
               <a-select-option :value=0>不考</a-select-option>
               <a-select-option :value=1>AI大模型自动答题</a-select-option>
