@@ -103,6 +103,9 @@
               <a-select-option :value="'HQKJ'">海旗科技</a-select-option>
             </a-select>
           </a-form-item>
+          <a-form-item label="备注名" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
+            <a-input v-model:value="user.remarkName" placeholder="请输入备注名（可选）"/>
+          </a-form-item>
           <a-form-item v-if="user.accountType=='YINGHUA' || user.accountType=='HQKJ'" label="URL" :label-col="{ span: 4 }" :wrapper-col="{ span:10, offset:0}">
             <a-input v-model:value="user.url" placeholder="对应平台登录后的URL链接，英华和海旗科技的填，其他的平台不用填"/>
           </a-form-item>
@@ -283,6 +286,7 @@ interface User {
   accountType: string
   url: string
   account: string
+  remarkName?: string
   password: string
   isProxy: number
   informEmails: string[]
@@ -368,6 +372,7 @@ function getDefaultForm(): FormData {
         accountType: 'YINGHUA',
         url: '',
         account: '',
+        remarkName: '',
         password: '',
         isProxy: 0,
         informEmails:[],
@@ -443,6 +448,7 @@ function addUser(): void {
     accountType: 'YINGHUA',
     url: '',
     account: '',
+    remarkName: '',
     password: '',
     isProxy: 0,
     informEmails: [],
@@ -489,6 +495,12 @@ function removeExcludeCourse(userIndex: number,coruseIndex: number){
 
 function exportYaml(): void {
   const processed =JSON.parse(JSON.stringify(form))
+  processed.users = processed.users.map((user: User) => {
+    if (!user.remarkName?.trim()) {
+      delete user.remarkName
+    }
+    return user
+  })
   const yamlStr = yaml.dump(processed,
   {
     styles: {
